@@ -1009,15 +1009,13 @@ def _download_url(
     else:
         logger.info("Downloading %s", url)
 
-    logger.info("Starting download")
     downloaded_chunks = written_chunks(
         progress_indicator(
             resp_read(CONTENT_CHUNK_SIZE),
             CONTENT_CHUNK_SIZE
         )
     )
-    logger.info("Download finished!")
-    
+
     if hashes:
         hashes.check_against_chunks(downloaded_chunks)
     else:
