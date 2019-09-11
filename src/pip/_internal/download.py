@@ -945,7 +945,7 @@ def _download_url(
         try:
             # Special case for urllib3.
             for chunk in resp.raw.stream(chunk_size, decode_content=False):
-                print('t')
+                a = None
                 yield chunk
 
         except AttributeError:
