@@ -972,6 +972,7 @@ def _download_url(
                     # hope to eliminate problems with the second case.
                     decode_content=False):
                 yield chunk
+
         except AttributeError:
             # Standard file-like object.
             while True:
