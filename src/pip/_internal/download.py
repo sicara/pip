@@ -940,9 +940,12 @@ def _download_url(
         show_progress = False
 
     show_url = link.show_url
+    
+    logger.info("Will download soon!")
 
     def resp_read(chunk_size):
         try:
+            logger.info("Reading with urllib3")
             # Special case for urllib3.
             for chunk in resp.raw.stream(
                     chunk_size,
@@ -969,17 +972,21 @@ def _download_url(
                     # By setting this not to decode automatically we
                     # hope to eliminate problems with the second case.
                     decode_content=False):
+                logger.info("Reading chunk")
                 yield chunk
         except AttributeError:
             # Standard file-like object.
+            logger.info("Reading like a standard object")
             while True:
                 chunk = resp.raw.read(chunk_size)
+                logger.info("Reading chunk")
                 if not chunk:
                     break
                 yield chunk
 
     def written_chunks(chunks):
         for chunk in chunks:
+            logger.info("Writing a chunk")
             content_file.write(chunk)
             yield chunk
 
@@ -1002,12 +1009,15 @@ def _download_url(
     else:
         logger.info("Downloading %s", url)
 
+    logger.info("Starting download")
     downloaded_chunks = written_chunks(
         progress_indicator(
             resp_read(CONTENT_CHUNK_SIZE),
             CONTENT_CHUNK_SIZE
         )
     )
+    logger.info("Download finished!")
+    
     if hashes:
         hashes.check_against_chunks(downloaded_chunks)
     else:
