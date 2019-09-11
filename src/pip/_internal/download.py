@@ -971,7 +971,6 @@ def _download_url(
                     # By setting this not to decode automatically we
                     # hope to eliminate problems with the second case.
                     decode_content=False):
-                logger.info("Reading chunk")
                 yield chunk
         except AttributeError:
             # Standard file-like object.
