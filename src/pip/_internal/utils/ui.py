@@ -157,8 +157,11 @@ class DownloadProgressMixin(object):
 
     def iter(self, it, n=1):
         for x in it:
+            logger.info("Iterating on profess bar")
             yield x
+            logger.info("Calling next")
             self.next(n)
+            logger.info("Iterated")
         self.finish()
 
 
