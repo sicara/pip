@@ -945,7 +945,6 @@ def _download_url(
 
     def resp_read(chunk_size):
         try:
-            logger.info("Reading with urllib3")
             # Special case for urllib3.
             for chunk in resp.raw.stream(
                     chunk_size,
