@@ -976,17 +976,14 @@ def _download_url(
                 yield chunk
         except AttributeError:
             # Standard file-like object.
-            logger.info("Reading like a standard object")
             while True:
                 chunk = resp.raw.read(chunk_size)
-                logger.info("Reading chunk")
                 if not chunk:
                     break
                 yield chunk
 
     def written_chunks(chunks):
         for chunk in chunks:
-            logger.info("Writing a chunk")
             content_file.write(chunk)
             yield chunk
 
